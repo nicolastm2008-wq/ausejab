@@ -1,31 +1,89 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
+  Camera,
   Droplets,
   FileText,
   Landmark,
-  ShieldCheck,
+  MapPinned,
+  Megaphone,
   Users,
 } from "lucide-react";
-import { getConfiguracion, getInformes, getJuntas } from "@/lib/data";
+import { getCobertura, getConfiguracion, getFotosGaleria, getInformes, getJuntas } from "@/lib/data";
 import SectionHeading from "@/components/ui/SectionHeading";
 
 export default async function HomePage() {
-  const [config, juntas, informes] = await Promise.all([
+  const [config, juntas, informes, cobertura, fotos] = await Promise.all([
     getConfiguracion(),
     getJuntas(),
     getInformes(),
+    getCobertura(),
+    getFotosGaleria(),
   ]);
 
   const juntaActual = juntas.find((j) => j.activa) ?? juntas[0];
   const anioActual = new Date().getFullYear();
   const antiguedad = anioActual - config.anioFundacion;
   const ultimosInformes = informes.slice(0, 3);
+  const fotosDestacadas = fotos.slice(0, 4);
+  const usuariosRegistrados = cobertura.reduce((acc, c) => acc + c.usuarios, 0);
+
+  const accesos = [
+    {
+      href: "/historia",
+      title: "Reseña histórica",
+      desc: "Cómo nació el acueducto y su misión y visión.",
+      icon: <Landmark className="h-5 w-5" />,
+    },
+    {
+      href: "/juntas-directivas",
+      title: "Juntas directivas",
+      desc: `Cada periodo desde ${config.anioFundacion}, con sus integrantes.`,
+      icon: <Users className="h-5 w-5" />,
+    },
+    {
+      href: "/informes",
+      title: "Documentos",
+      desc: "Estatutos, actas, Cámara de Comercio e informes por año.",
+      icon: <FileText className="h-5 w-5" />,
+    },
+    {
+      href: "/avisos",
+      title: "Avisos",
+      desc: "Cortes, mantenimientos y novedades del servicio.",
+      icon: <Megaphone className="h-5 w-5" />,
+    },
+    {
+      href: "/cobertura",
+      title: "Cobertura",
+      desc: "Sectores y veredas que abastece el acueducto.",
+      icon: <MapPinned className="h-5 w-5" />,
+    },
+    {
+      href: "/galeria",
+      title: "Galería",
+      desc: "Fotos de mantenimientos y trabajo comunitario.",
+      icon: <Camera className="h-5 w-5" />,
+    },
+  ];
 
   return (
     <div>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-brand-900 via-brand-800 to-aqua-800 text-white">
+      <section className="relative overflow-hidden text-white">
+        <div className="absolute inset-0">
+          <Image
+            src="/galeria-inicial/020.jpeg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-950/95 via-brand-900/90 to-aqua-900/85" />
+        </div>
+
         <div className="container-page relative z-10 grid gap-10 py-20 sm:py-28 lg:grid-cols-2 lg:items-center">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-medium uppercase tracking-wide text-brand-100 ring-1 ring-white/20">
@@ -59,36 +117,17 @@ export default async function HomePage() {
 
           <div className="grid grid-cols-2 gap-4">
             <StatCard icon={<Landmark className="h-5 w-5" />} label="Años de servicio" value={`${antiguedad}+`} />
-            <StatCard icon={<Users className="h-5 w-5" />} label="Juntas directivas registradas" value={`${juntas.length}`} />
-            <StatCard icon={<FileText className="h-5 w-5" />} label="Informes publicados" value={`${informes.length}`} />
-            <StatCard icon={<ShieldCheck className="h-5 w-5" />} label="Gestión" value="Transparente" />
+            <StatCard icon={<Users className="h-5 w-5" />} label="Usuarios registrados" value={`${usuariosRegistrados}`} />
+            <StatCard icon={<MapPinned className="h-5 w-5" />} label="Sectores cubiertos" value={`${cobertura.length}`} />
+            <StatCard icon={<FileText className="h-5 w-5" />} label="Documentos publicados" value={`${informes.length}`} />
           </div>
         </div>
-        <div className="absolute inset-x-0 bottom-0 h-16 bg-wave-pattern bg-repeat-x bg-bottom opacity-90" />
+        <div className="absolute inset-x-0 bottom-0 z-10 h-16 bg-wave-pattern bg-repeat-x bg-bottom opacity-90" />
       </section>
 
       {/* Accesos rapidos */}
-      <section className="container-page -mt-8 grid gap-4 pb-4 sm:grid-cols-3">
-        {[
-          {
-            href: "/historia",
-            title: "Reseña histórica",
-            desc: "Cómo nació el acueducto y su misión y visión.",
-            icon: <Landmark className="h-5 w-5" />,
-          },
-          {
-            href: "/juntas-directivas",
-            title: "Juntas directivas",
-            desc: "Cada periodo desde 1996, con sus integrantes.",
-            icon: <Users className="h-5 w-5" />,
-          },
-          {
-            href: "/informes",
-            title: "Documentos",
-            desc: "Estatutos, actas, Cámara de Comercio e informes por año.",
-            icon: <FileText className="h-5 w-5" />,
-          },
-        ].map((item) => (
+      <section className="container-page -mt-8 grid gap-4 pb-4 sm:grid-cols-2 lg:grid-cols-3">
+        {accesos.map((item) => (
           <Link
             key={item.href}
             href={item.href}
@@ -146,18 +185,53 @@ export default async function HomePage() {
         </section>
       )}
 
+      {/* Galeria destacada */}
+      {fotosDestacadas.length > 0 && (
+        <section className="bg-slate-100/70 py-16">
+          <div className="container-page">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <SectionHeading eyebrow="Trabajo comunitario" title="Nuestro trabajo en fotos" />
+              <Link href="/galeria" className="text-sm font-medium text-brand-700 hover:underline">
+                Ver galería completa →
+              </Link>
+            </div>
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {fotosDestacadas.map((foto) => (
+                <Link
+                  key={foto._id}
+                  href="/galeria"
+                  className="group relative block aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 bg-slate-200 shadow-soft"
+                >
+                  <Image
+                    src={foto.url}
+                    alt={foto.titulo}
+                    fill
+                    sizes="(min-width: 1024px) 25vw, 50vw"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    unoptimized
+                  />
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3">
+                    <p className="text-xs font-medium text-white">{foto.titulo}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Ultimos informes */}
-      <section className="bg-slate-100/70 py-16">
+      <section className="py-16">
         <div className="container-page">
           <SectionHeading
             eyebrow="Transparencia"
-            title="Últimos informes publicados"
-            description="Declaraciones DIAN, informes financieros y rendición de cuentas."
+            title="Últimos documentos publicados"
+            description="Estatutos, actas, declaraciones DIAN y demás informes."
           />
           <div className="mt-8 grid gap-4 sm:grid-cols-3">
             {ultimosInformes.length === 0 && (
               <p className="text-sm text-slate-500">
-                Todavía no hay informes cargados. El equipo interno puede publicarlos desde el panel privado.
+                Todavía no hay documentos cargados. El equipo interno puede publicarlos desde el panel privado.
               </p>
             )}
             {ultimosInformes.map((inf) => (
