@@ -4,6 +4,7 @@ import ConfiguracionModel, { type Configuracion } from "@/models/Configuracion";
 import JuntaDirectivaModel from "@/models/JuntaDirectiva";
 import InformeModel from "@/models/Informe";
 import UsuarioModel from "@/models/Usuario";
+import PredioModel from "@/models/Predio";
 
 export type ConfiguracionPlain = Configuracion & { _id: string };
 export type JuntaPlain = {
@@ -60,5 +61,23 @@ export type UsuarioPlain = {
 export async function getUsuarios(): Promise<UsuarioPlain[]> {
   await connectDB();
   const docs = await UsuarioModel.find().select("-passwordHash").sort({ createdAt: -1 });
+  return JSON.parse(JSON.stringify(docs));
+}
+
+export type PredioPlain = {
+  _id: string;
+  nombreUsuario: string;
+  predio: string;
+  sector: string;
+  vereda: string;
+  codigoMedidor: string;
+  estado: string;
+  telefono: string;
+  notas: string;
+};
+
+export async function getPredios(): Promise<PredioPlain[]> {
+  await connectDB();
+  const docs = await PredioModel.find().sort({ sector: 1, nombreUsuario: 1 });
   return JSON.parse(JSON.stringify(docs));
 }

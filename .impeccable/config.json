@@ -11,6 +11,15 @@
         ],
         "createdAt": "2026-09-26T19:08:14.712Z",
         "reason": "false positive: icon button text-slate-400 pairs with hover:text-red-600 alongside hover:bg-red-50, so hover contrast is fine; base state has no colored background"
+      },
+      {
+        "rule": "gray-on-color",
+        "value": "*",
+        "files": [
+          "src/components/panel/SectoresManager.tsx"
+        ],
+        "createdAt": "2026-09-26T21:29:45.275Z",
+        "reason": "false positive: icon button text-slate-500 pairs with hover:text-red-600 alongside hover:bg-red-50, so hover contrast is fine; base state has no colored background (same pattern already accepted in JuntasManager.tsx)"
       }
     ]
   }

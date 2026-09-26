@@ -1,17 +1,19 @@
 import Link from "next/link";
-import { FileText, Settings, Users } from "lucide-react";
-import { getConfiguracion, getInformes, getJuntas } from "@/lib/data";
+import { FileText, MapPinned, Settings, Users } from "lucide-react";
+import { getConfiguracion, getInformes, getJuntas, getPredios } from "@/lib/data";
 
 export const metadata = { title: "Resumen" };
 
 export default async function PanelDashboardPage() {
-  const [config, juntas, informes] = await Promise.all([
+  const [config, juntas, informes, predios] = await Promise.all([
     getConfiguracion(),
     getJuntas(),
     getInformes(),
+    getPredios(),
   ]);
 
   const juntaActual = juntas.find((j) => j.activa);
+  const sectores = new Set(predios.map((p) => p.sector)).size;
 
   const cards = [
     {
@@ -20,6 +22,13 @@ export default async function PanelDashboardPage() {
       title: "Juntas directivas",
       value: `${juntas.length}`,
       hint: juntaActual ? `Vigente: ${juntaActual.periodoInicio}-${juntaActual.periodoFin}` : "Ninguna marcada como vigente",
+    },
+    {
+      href: "/panel/sectores",
+      icon: MapPinned,
+      title: "Usuarios en sectores",
+      value: `${predios.length}`,
+      hint: sectores > 0 ? `${sectores} sector(es) registrados` : "Sin sectores cargados",
     },
     {
       href: "/panel/informes",
@@ -44,7 +53,7 @@ export default async function PanelDashboardPage() {
         Estado actual del contenido público del sitio.
       </p>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-3">
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {cards.map((card) => (
           <Link
             key={card.href}
@@ -66,6 +75,7 @@ export default async function PanelDashboardPage() {
         <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-slate-600">
           <li>Edita el nombre, colores y reseña histórica en <Link href="/panel/historia" className="text-brand-700 hover:underline">Identidad e historia</Link>.</li>
           <li>Registra cada periodo desde {config.anioFundacion} en <Link href="/panel/juntas" className="text-brand-700 hover:underline">Juntas directivas</Link>.</li>
+          <li>Importa el Excel de sectores o carga los usuarios uno por uno en <Link href="/panel/sectores" className="text-brand-700 hover:underline">Sectores</Link>.</li>
           <li>Sube estatutos, actas, Cámara de Comercio y demás documentos en <Link href="/panel/informes" className="text-brand-700 hover:underline">Documentos</Link>.</li>
         </ul>
       </div>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Droplets, FileText, LayoutDashboard, Settings, Users, UserCog } from "lucide-react";
+import { Droplets, FileText, LayoutDashboard, MapPinned, Settings, Users, UserCog } from "lucide-react";
 import { getSession } from "@/lib/auth";
 import { getConfiguracion } from "@/lib/data";
 import LogoutButton from "@/components/panel/LogoutButton";
@@ -17,6 +17,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
     { href: "/panel", label: "Resumen", icon: LayoutDashboard },
     { href: "/panel/historia", label: "Identidad e historia", icon: Settings },
     { href: "/panel/juntas", label: "Juntas directivas", icon: Users },
+    { href: "/panel/sectores", label: "Sectores", icon: MapPinned },
     { href: "/panel/informes", label: "Documentos", icon: FileText },
     ...(session.rol === "admin"
       ? [{ href: "/panel/usuarios", label: "Usuarios internos", icon: UserCog }]
