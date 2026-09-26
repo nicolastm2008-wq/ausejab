@@ -1,5 +1,16 @@
 import Link from "next/link";
-import { Droplets, FileText, LayoutDashboard, MapPinned, Settings, Users, UserCog } from "lucide-react";
+import {
+  Droplets,
+  FileText,
+  Image as ImageIcon,
+  LayoutDashboard,
+  MapPinned,
+  Megaphone,
+  Scale,
+  Settings,
+  Users,
+  UserCog,
+} from "lucide-react";
 import { getSession } from "@/lib/auth";
 import { getConfiguracion } from "@/lib/data";
 import LogoutButton from "@/components/panel/LogoutButton";
@@ -16,9 +27,12 @@ export default async function PanelLayout({ children }: { children: React.ReactN
   const links = [
     { href: "/panel", label: "Resumen", icon: LayoutDashboard },
     { href: "/panel/historia", label: "Identidad e historia", icon: Settings },
+    { href: "/panel/avisos", label: "Avisos", icon: Megaphone },
     { href: "/panel/juntas", label: "Juntas directivas", icon: Users },
     { href: "/panel/sectores", label: "Sectores", icon: MapPinned },
     { href: "/panel/informes", label: "Documentos", icon: FileText },
+    { href: "/panel/galeria", label: "Galería", icon: ImageIcon },
+    { href: "/panel/legal", label: "Política de datos y términos", icon: Scale },
     ...(session.rol === "admin"
       ? [{ href: "/panel/usuarios", label: "Usuarios internos", icon: UserCog }]
       : []),
@@ -28,9 +42,14 @@ export default async function PanelLayout({ children }: { children: React.ReactN
     <div className="flex min-h-screen bg-slate-100">
       <aside className="hidden w-64 shrink-0 flex-col border-r border-slate-200 bg-white md:flex">
         <div className="flex h-16 items-center gap-2.5 border-b border-slate-200 px-5">
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white">
-            <Droplets className="h-5 w-5" />
-          </span>
+          {config.logoUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={config.logoUrl} alt={config.nombre} className="h-9 w-auto object-contain" />
+          ) : (
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white">
+              <Droplets className="h-5 w-5" />
+            </span>
+          )}
           <div className="leading-tight">
             <p className="text-sm font-semibold text-slate-900">Panel interno</p>
             <p className="text-xs text-slate-500">{config.nombre}</p>

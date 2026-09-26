@@ -37,8 +37,34 @@ const ConfiguracionSchema = new Schema(
     },
 
     // Marca
+    logoUrl: { type: String, default: "" },
     colorPrimario: { type: String, default: "#1c65c9" },
     colorSecundario: { type: String, default: "#178a6a" },
+
+    // Legal
+    politicaDatos: {
+      type: String,
+      default:
+        "Texto de ejemplo, revisar con un abogado antes de publicar. " +
+        "Este acueducto trata los datos personales de sus usuarios (nombre, direccion del predio, " +
+        "telefono y consumo) unicamente para la prestacion del servicio de acueducto, la facturacion, " +
+        "la atencion de peticiones, quejas y reclamos, y el cumplimiento de obligaciones legales ante " +
+        "la Superintendencia de Servicios Publicos Domiciliarios y la DIAN, conforme a la Ley 1581 de 2012 " +
+        "y el Decreto 1377 de 2013. Los datos no se venden ni se comparten con terceros distintos a las " +
+        "entidades de control que los exijan por ley. Todo usuario puede solicitar conocer, actualizar, " +
+        "rectificar o eliminar sus datos escribiendo a los canales de contacto de esta pagina.",
+    },
+    terminosCondiciones: {
+      type: String,
+      default:
+        "Texto de ejemplo, revisar con un abogado antes de publicar. " +
+        "El uso de este sitio web implica la aceptacion de estos terminos. La informacion publicada " +
+        "(historia, juntas directivas, informes y documentos) es de caracter informativo y de " +
+        "transparencia frente a la comunidad de usuarios del acueducto. El acceso al panel privado " +
+        "esta reservado al equipo interno autorizado. El acueducto no se hace responsable por el uso " +
+        "indebido de la informacion publicada ni por interrupciones del servicio causadas por terceros " +
+        "ajenos a su control. Para dudas sobre estos terminos, comunicarse por los canales de contacto.",
+    },
   },
   { timestamps: true },
 );

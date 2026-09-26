@@ -10,9 +10,16 @@ export default function SiteFooter({ config }: { config: ConfiguracionPlain }) {
       <div className="container-page grid gap-10 py-12 md:grid-cols-3">
         <div>
           <div className="flex items-center gap-2.5">
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white">
-              <Droplets className="h-5 w-5" />
-            </span>
+            {config.logoUrl ? (
+              <span className="rounded-lg bg-white/95 p-1.5">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={config.logoUrl} alt={config.nombre} className="h-9 w-auto object-contain" />
+              </span>
+            ) : (
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white">
+                <Droplets className="h-5 w-5" />
+              </span>
+            )}
             <span className="font-display text-base font-semibold text-white">{config.nombre}</span>
           </div>
           <p className="mt-3 text-sm text-slate-400">{config.eslogan}</p>
@@ -29,6 +36,9 @@ export default function SiteFooter({ config }: { config: ConfiguracionPlain }) {
             <li><Link href="/historia" className="hover:text-white">Nuestra historia</Link></li>
             <li><Link href="/juntas-directivas" className="hover:text-white">Juntas directivas</Link></li>
             <li><Link href="/informes" className="hover:text-white">Documentos y transparencia</Link></li>
+            <li><Link href="/avisos" className="hover:text-white">Avisos</Link></li>
+            <li><Link href="/cobertura" className="hover:text-white">Cobertura</Link></li>
+            <li><Link href="/galeria" className="hover:text-white">Galería</Link></li>
             <li><Link href="/contacto" className="hover:text-white">Contacto</Link></li>
             <li><Link href="/panel" className="hover:text-white">Acceso equipo interno</Link></li>
           </ul>
@@ -71,9 +81,13 @@ export default function SiteFooter({ config }: { config: ConfiguracionPlain }) {
       </div>
 
       <div className="border-t border-slate-800 py-4">
-        <p className="container-page text-center text-xs text-slate-500">
-          &copy; {year} {config.nombre}. Todos los derechos reservados.
-        </p>
+        <div className="container-page flex flex-col items-center gap-2 text-center text-xs text-slate-500 sm:flex-row sm:justify-between">
+          <p>&copy; {year} {config.nombre}. Todos los derechos reservados.</p>
+          <div className="flex gap-4">
+            <Link href="/politica-de-datos" className="hover:text-slate-300">Política de datos</Link>
+            <Link href="/terminos-y-condiciones" className="hover:text-slate-300">Términos y condiciones</Link>
+          </div>
+        </div>
       </div>
     </footer>
   );

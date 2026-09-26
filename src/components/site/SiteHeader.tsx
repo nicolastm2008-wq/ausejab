@@ -20,19 +20,16 @@ export default function SiteHeader({ config }: { config: ConfiguracionPlain }) {
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur">
-      <div className="container-page flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white shadow-soft">
-            <Droplets className="h-5 w-5" />
-          </span>
-          <span className="hidden flex-col leading-tight sm:flex">
-            <span className="font-display text-sm font-semibold text-slate-900 lg:text-base">
-              {config.nombre}
+      <div className="container-page flex h-20 items-center justify-between">
+        <Link href="/" onClick={() => setOpen(false)}>
+          {config.logoUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={config.logoUrl} alt={config.nombre} className="h-16 w-auto object-contain" />
+          ) : (
+            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-600 text-white shadow-soft">
+              <Droplets className="h-6 w-6" />
             </span>
-            <span className="hidden text-[11px] uppercase tracking-wide text-slate-500 xl:block">
-              {config.municipio} &middot; desde {config.anioFundacion}
-            </span>
-          </span>
+          )}
         </Link>
 
         <nav className="hidden items-center gap-0.5 lg:flex">

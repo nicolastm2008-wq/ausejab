@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type ChangeEvent, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { Save } from "lucide-react";
+import { Save, Upload } from "lucide-react";
 import type { ConfiguracionPlain } from "@/lib/data";
 
 type Props = { configuracion: ConfiguracionPlain };
@@ -37,9 +37,35 @@ export default function ConfiguracionForm({ configuracion }: Props) {
   });
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: "ok" | "error"; text: string } | null>(null);
+  const [uploadingLogo, setUploadingLogo] = useState(false);
+  const logoInputRef = useRef<HTMLInputElement>(null);
 
   function update(name: string, value: string) {
     setValues((v) => ({ ...v, [name]: value }));
+  }
+
+  async function handleLogoChange(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setUploadingLogo(true);
+    setMessage(null);
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch("/api/galeria/upload", { method: "POST", body: formData });
+    const data = await res.json().catch(() => ({}));
+
+    setUploadingLogo(false);
+
+    if (!res.ok) {
+      setMessage({ type: "error", text: data.error ?? "No se pudo subir el logo" });
+      return;
+    }
+
+    update("logoUrl", data.url);
+    if (logoInputRef.current) logoInputRef.current.value = "";
   }
 
   async function handleSubmit(event: FormEvent) {
@@ -69,6 +95,35 @@ export default function ConfiguracionForm({ configuracion }: Props) {
     <form onSubmit={handleSubmit} className="space-y-8">
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
         <h2 className="font-display text-base font-semibold text-slate-900">Identidad</h2>
+
+        <div className="mt-4 flex items-center gap-4">
+          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 p-1.5">
+            {values.logoUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={values.logoUrl as string} alt="Logo actual" className="max-h-full max-w-full object-contain" />
+            ) : (
+              <span className="text-xs text-slate-400">Sin logo</span>
+            )}
+          </div>
+          <div>
+            <label className="text-sm font-medium text-slate-700">Logo</label>
+            <div className="mt-1">
+              <input
+                ref={logoInputRef}
+                type="file"
+                accept="image/jpeg,image/png,image/webp"
+                onChange={handleLogoChange}
+                className="text-sm file:mr-3 file:rounded-md file:border-0 file:bg-brand-50 file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-brand-700"
+              />
+            </div>
+            {uploadingLogo && (
+              <p className="mt-1 flex items-center gap-1.5 text-xs text-slate-500">
+                <Upload className="h-3 w-3" /> Subiendo...
+              </p>
+            )}
+          </div>
+        </div>
+
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           {CAMPOS_TEXTO.map((campo) => (
             <div key={campo.name}>

@@ -22,8 +22,11 @@ const CAMPOS_EDITABLES = [
   "resenaHistorica",
   "mision",
   "vision",
+  "logoUrl",
   "colorPrimario",
   "colorSecundario",
+  "politicaDatos",
+  "terminosCondiciones",
 ] as const;
 
 export async function PUT(request: Request) {

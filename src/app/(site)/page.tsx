@@ -32,8 +32,11 @@ export default async function HomePage() {
               <Droplets className="h-3.5 w-3.5" /> Sirviendo desde {config.anioFundacion}
             </span>
             <h1 className="mt-5 font-display text-4xl font-bold leading-tight sm:text-5xl">
-              {config.nombre}
+              {config.siglas || config.nombre}
             </h1>
+            {config.siglas && (
+              <p className="mt-2 max-w-xl text-base font-medium text-brand-100">{config.nombre}</p>
+            )}
             <p className="mt-4 max-w-xl text-lg text-brand-100">{config.eslogan}</p>
             <p className="mt-2 max-w-xl text-sm text-brand-200">
               {config.vereda}, {config.municipio} &mdash; {config.departamento}
