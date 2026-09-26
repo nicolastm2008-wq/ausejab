@@ -8,6 +8,7 @@ import {
   Landmark,
   MapPinned,
   Megaphone,
+  ShieldCheck,
   Users,
 } from "lucide-react";
 import { getCobertura, getConfiguracion, getFotosGaleria, getInformes, getJuntas } from "@/lib/data";
@@ -145,6 +146,54 @@ export default async function HomePage() {
         ))}
       </section>
 
+      {/* Quienes somos */}
+      <section className="container-page py-16">
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-soft">
+            <Image
+              src="/galeria-inicial/010.jpeg"
+              alt="Control de calidad del agua realizado por el equipo del acueducto"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+              unoptimized
+            />
+          </div>
+          <div>
+            <SectionHeading
+              eyebrow="Quiénes somos"
+              title={`${antiguedad}+ años cuidando el agua de nuestra comunidad`}
+            />
+            <p className="mt-4 text-slate-600">
+              Desde {config.anioFundacion}, {config.siglas || config.nombre} administra el servicio de
+              acueducto para las familias de {config.vereda}, en {config.municipio}, {config.departamento}.
+              Nos encargamos del mantenimiento de la red, del control de calidad del agua y de la
+              administración transparente del servicio frente a la comunidad de usuarios.
+            </p>
+            <div className="mt-6 flex items-center gap-3 rounded-2xl bg-brand-50 p-4">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white text-brand-700 shadow-soft">
+                <ShieldCheck className="h-5 w-5" />
+              </span>
+              <p className="text-sm text-brand-800">{config.eslogan}</p>
+            </div>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link
+                href="/historia"
+                className="inline-flex items-center gap-2 rounded-full bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-800"
+              >
+                Nuestra historia <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href="/contacto"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-5 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:bg-slate-50"
+              >
+                Contáctanos
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Junta actual */}
       {juntaActual && (
         <section className="container-page py-16">
@@ -221,37 +270,39 @@ export default async function HomePage() {
       )}
 
       {/* Ultimos informes */}
-      <section className="py-16">
-        <div className="container-page">
-          <SectionHeading
-            eyebrow="Transparencia"
-            title="Últimos documentos publicados"
-            description="Estatutos, actas, declaraciones DIAN y demás informes."
-          />
-          <div className="mt-8 grid gap-4 sm:grid-cols-3">
-            {ultimosInformes.length === 0 && (
-              <p className="text-sm text-slate-500">
-                Todavía no hay documentos cargados. El equipo interno puede publicarlos desde el panel privado.
-              </p>
-            )}
-            {ultimosInformes.map((inf) => (
-              <a
-                key={inf._id}
-                href={inf.url}
-                target="_blank"
-                rel="noreferrer"
-                className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-5 shadow-soft transition-all hover:-translate-y-1 hover:shadow-lg"
-              >
-                <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700">
-                  <FileText className="h-3 w-3" /> {inf.anio}
-                </span>
-                <p className="font-medium text-slate-900">{inf.titulo}</p>
-                <p className="text-xs text-slate-500">{inf.tipo}</p>
-              </a>
-            ))}
+      {ultimosInformes.length > 0 && (
+        <section className="py-16">
+          <div className="container-page">
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <SectionHeading
+                eyebrow="Transparencia"
+                title="Últimos documentos publicados"
+                description="Estatutos, actas, declaraciones DIAN y demás informes."
+              />
+              <Link href="/informes" className="text-sm font-medium text-brand-700 hover:underline">
+                Ver todos los documentos →
+              </Link>
+            </div>
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              {ultimosInformes.map((inf) => (
+                <a
+                  key={inf._id}
+                  href={inf.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-5 shadow-soft transition-all hover:-translate-y-1 hover:shadow-lg"
+                >
+                  <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700">
+                    <FileText className="h-3 w-3" /> {inf.anio}
+                  </span>
+                  <p className="font-medium text-slate-900">{inf.titulo}</p>
+                  <p className="text-xs text-slate-500">{inf.tipo}</p>
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   );
 }
