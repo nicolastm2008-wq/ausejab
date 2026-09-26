@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gray-on-color",
+        "value": "*",
+        "files": [
+          "src/components/panel/JuntasManager.tsx"
+        ],
+        "createdAt": "2026-09-26T19:08:14.712Z",
+        "reason": "false positive: icon button text-slate-400 pairs with hover:text-red-600 alongside hover:bg-red-50, so hover contrast is fine; base state has no colored background"
+      }
+    ]
+  }
+}
