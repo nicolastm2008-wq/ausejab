@@ -1,17 +1,12 @@
 import { Schema, model, models, type InferSchemaType } from "mongoose";
+import { TIPOS_INFORME } from "@/lib/tipos-informe";
 
-export const TIPOS_INFORME = [
-  "Declaracion de Renta DIAN",
-  "Rendicion de Cuentas",
-  "Informe Financiero",
-  "Acta de Asamblea",
-  "Otro",
-] as const;
+export { TIPOS_INFORME };
 
 const InformeSchema = new Schema(
   {
     anio: { type: Number, required: true },
-    tipo: { type: String, enum: TIPOS_INFORME, default: "Declaracion de Renta DIAN" },
+    tipo: { type: String, enum: TIPOS_INFORME, default: "Estatutos" },
     titulo: { type: String, required: true, trim: true },
     descripcion: { type: String, default: "" },
     url: { type: String, required: true },

@@ -4,14 +4,7 @@ import { useRef, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { FileText, Trash2, Upload } from "lucide-react";
 import type { InformePlain } from "@/lib/data";
-
-const TIPOS_INFORME = [
-  "Declaracion de Renta DIAN",
-  "Rendicion de Cuentas",
-  "Informe Financiero",
-  "Acta de Asamblea",
-  "Otro",
-];
+import { TIPOS_INFORME, type TipoInforme } from "@/lib/tipos-informe";
 
 function formatBytes(bytes: number) {
   if (!bytes) return "";
@@ -24,7 +17,7 @@ export default function InformesManager({ informes }: { informes: InformePlain[]
   const router = useRouter();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [anio, setAnio] = useState(String(new Date().getFullYear()));
-  const [tipo, setTipo] = useState(TIPOS_INFORME[0]);
+  const [tipo, setTipo] = useState<TipoInforme>(TIPOS_INFORME[0]);
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [uploading, setUploading] = useState(false);
@@ -110,12 +103,12 @@ export default function InformesManager({ informes }: { informes: InformePlain[]
             <label className="text-sm font-medium text-slate-700">Tipo de documento</label>
             <select
               value={tipo}
-              onChange={(e) => setTipo(e.target.value)}
+              onChange={(e) => setTipo(e.target.value as TipoInforme)}
               className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
             >
               {TIPOS_INFORME.map((t) => (
                 <option key={t} value={t}>
-                  {t.replace("Declaracion", "Declaración").replace("Rendicion", "Rendición")}
+                  {t}
                 </option>
               ))}
             </select>

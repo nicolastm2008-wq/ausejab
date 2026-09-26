@@ -81,8 +81,8 @@ export default async function HomePage() {
           },
           {
             href: "/informes",
-            title: "Informes DIAN",
-            desc: "Declaraciones y rendición de cuentas por año.",
+            title: "Documentos",
+            desc: "Estatutos, actas, Cámara de Comercio e informes por año.",
             icon: <FileText className="h-5 w-5" />,
           },
         ].map((item) => (

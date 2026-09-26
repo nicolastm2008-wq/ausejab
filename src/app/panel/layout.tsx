@@ -17,7 +17,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
     { href: "/panel", label: "Resumen", icon: LayoutDashboard },
     { href: "/panel/historia", label: "Identidad e historia", icon: Settings },
     { href: "/panel/juntas", label: "Juntas directivas", icon: Users },
-    { href: "/panel/informes", label: "Informes DIAN", icon: FileText },
+    { href: "/panel/informes", label: "Documentos", icon: FileText },
     ...(session.rol === "admin"
       ? [{ href: "/panel/usuarios", label: "Usuarios internos", icon: UserCog }]
       : []),

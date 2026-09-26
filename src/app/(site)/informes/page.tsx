@@ -3,7 +3,7 @@ import { Download, FileText, ShieldCheck } from "lucide-react";
 import { getInformes } from "@/lib/data";
 import SectionHeading from "@/components/ui/SectionHeading";
 
-export const metadata = { title: "Informes y Transparencia" };
+export const metadata = { title: "Documentos y Transparencia" };
 
 function formatBytes(bytes: number) {
   if (!bytes) return "";
@@ -25,11 +25,12 @@ export default async function InformesPage() {
             <ShieldCheck className="h-3.5 w-3.5" /> Transparencia
           </span>
           <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">
-            Informes y rendición de cuentas
+            Documentos y transparencia
           </h1>
           <p className="mt-3 max-w-2xl text-brand-100">
-            Declaraciones ante la DIAN, informes financieros y actas de asamblea, organizados por
-            año. Documentos públicos para consulta y descarga de toda la comunidad.
+            Estatutos, actas de asamblea, certificado de Cámara de Comercio, declaraciones DIAN e
+            informes financieros, organizados por año. Documentos públicos para consulta y
+            descarga de toda la comunidad.
           </p>
         </div>
       </section>
@@ -41,8 +42,8 @@ export default async function InformesPage() {
           <div className="mt-8 rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center">
             <FileText className="mx-auto h-8 w-8 text-slate-400" />
             <p className="mt-3 text-sm text-slate-600">
-              Todavía no hay informes publicados. El equipo interno puede subir los PDF (DIAN,
-              financieros, actas) desde el{" "}
+              Todavía no hay documentos publicados. El equipo interno puede subir los PDF
+              (estatutos, actas, Cámara de Comercio, DIAN, financieros) desde el{" "}
               <Link href="/panel" className="font-medium text-brand-700 hover:underline">
                 panel privado
               </Link>

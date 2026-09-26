@@ -28,7 +28,7 @@ export default function SiteFooter({ config }: { config: ConfiguracionPlain }) {
           <ul className="mt-3 space-y-2 text-sm">
             <li><Link href="/historia" className="hover:text-white">Nuestra historia</Link></li>
             <li><Link href="/juntas-directivas" className="hover:text-white">Juntas directivas</Link></li>
-            <li><Link href="/informes" className="hover:text-white">Informes y transparencia</Link></li>
+            <li><Link href="/informes" className="hover:text-white">Documentos y transparencia</Link></li>
             <li><Link href="/contacto" className="hover:text-white">Contacto</Link></li>
             <li><Link href="/panel" className="hover:text-white">Acceso equipo interno</Link></li>
           </ul>

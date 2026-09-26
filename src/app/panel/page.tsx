@@ -24,9 +24,9 @@ export default async function PanelDashboardPage() {
     {
       href: "/panel/informes",
       icon: FileText,
-      title: "Informes publicados",
+      title: "Documentos publicados",
       value: `${informes.length}`,
-      hint: "DIAN, financieros y actas",
+      hint: "Estatutos, actas, Cámara de Comercio, DIAN...",
     },
     {
       href: "/panel/historia",
@@ -66,7 +66,7 @@ export default async function PanelDashboardPage() {
         <ul className="mt-3 list-inside list-disc space-y-1.5 text-sm text-slate-600">
           <li>Edita el nombre, colores y reseña histórica en <Link href="/panel/historia" className="text-brand-700 hover:underline">Identidad e historia</Link>.</li>
           <li>Registra cada periodo desde {config.anioFundacion} en <Link href="/panel/juntas" className="text-brand-700 hover:underline">Juntas directivas</Link>.</li>
-          <li>Sube las declaraciones DIAN y demás informes en <Link href="/panel/informes" className="text-brand-700 hover:underline">Informes DIAN</Link>.</li>
+          <li>Sube estatutos, actas, Cámara de Comercio y demás documentos en <Link href="/panel/informes" className="text-brand-700 hover:underline">Documentos</Link>.</li>
         </ul>
       </div>
     </div>
