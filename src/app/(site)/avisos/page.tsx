@@ -1,6 +1,7 @@
 import { Megaphone } from "lucide-react";
 import { getAvisos } from "@/lib/data";
 import SectionHeading from "@/components/ui/SectionHeading";
+import PageHero from "@/components/site/PageHero";
 import { AVISO_STYLES, type TipoAviso } from "@/lib/tipos-aviso";
 
 export const metadata = { title: "Avisos" };
@@ -10,17 +11,13 @@ export default async function AvisosPage() {
 
   return (
     <div>
-      <section className="bg-brand-900 py-16 text-white">
-        <div className="container-page">
-          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-brand-200">
-            <Megaphone className="h-3.5 w-3.5" /> Comunicados
-          </span>
-          <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">Avisos</h1>
-          <p className="mt-3 max-w-2xl text-brand-100">
-            Cortes programados, mantenimientos, la próxima asamblea y demás novedades del acueducto.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Comunicados"
+        eyebrowIcon={<Megaphone className="h-3.5 w-3.5" />}
+        title="Avisos"
+        description="Cortes programados, mantenimientos, la próxima asamblea y demás novedades del acueducto."
+        imageSrc="/galeria-inicial/023.jpeg"
+      />
 
       <section className="container-page py-14">
         <SectionHeading eyebrow="Comunicados vigentes" title="Todos los avisos activos" />

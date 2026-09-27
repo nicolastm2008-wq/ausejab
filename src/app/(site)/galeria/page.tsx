@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Camera } from "lucide-react";
 import { getFotosGaleria } from "@/lib/data";
 import SectionHeading from "@/components/ui/SectionHeading";
+import PageHero from "@/components/site/PageHero";
 
 export const metadata = { title: "Galería" };
 
@@ -10,17 +11,13 @@ export default async function GaleriaPage() {
 
   return (
     <div>
-      <section className="bg-brand-900 py-16 text-white">
-        <div className="container-page">
-          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-brand-200">
-            <Camera className="h-3.5 w-3.5" /> Trabajo comunitario
-          </span>
-          <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">Galería de obras</h1>
-          <p className="mt-3 max-w-2xl text-brand-100">
-            Mantenimientos, mejoras a la red y trabajo comunitario del acueducto.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Trabajo comunitario"
+        eyebrowIcon={<Camera className="h-3.5 w-3.5" />}
+        title="Galería de obras"
+        description="Mantenimientos, mejoras a la red y trabajo comunitario del acueducto."
+        imageSrc="/galeria-inicial/016.jpeg"
+      />
 
       <section className="container-page py-14">
         <SectionHeading eyebrow="Fotos" title="Lo que hemos hecho" />

@@ -1,6 +1,7 @@
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { getConfiguracion } from "@/lib/data";
 import SectionHeading from "@/components/ui/SectionHeading";
+import PageHero from "@/components/site/PageHero";
 
 export const metadata = { title: "Contacto" };
 
@@ -16,17 +17,12 @@ export default async function ContactoPage() {
 
   return (
     <div>
-      <section className="bg-brand-900 py-16 text-white">
-        <div className="container-page">
-          <span className="text-xs font-semibold uppercase tracking-widest text-brand-200">
-            Estamos para servirte
-          </span>
-          <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">Contacto</h1>
-          <p className="mt-3 max-w-2xl text-brand-100">
-            Comunícate con {config.siglas || config.nombre} para peticiones, quejas, reclamos o sugerencias.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Estamos para servirte"
+        title="Contacto"
+        description={`Comunícate con ${config.siglas || config.nombre} para peticiones, quejas, reclamos o sugerencias.`}
+        imageSrc="/galeria-inicial/013.jpeg"
+      />
 
       <section className="container-page py-14">
         <SectionHeading eyebrow="Información" title="Datos de contacto" />

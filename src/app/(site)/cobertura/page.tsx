@@ -1,6 +1,7 @@
 import { MapPinned, Users } from "lucide-react";
 import { getCobertura, getConfiguracion } from "@/lib/data";
 import SectionHeading from "@/components/ui/SectionHeading";
+import PageHero from "@/components/site/PageHero";
 
 export const metadata = { title: "Cobertura" };
 
@@ -10,17 +11,13 @@ export default async function CoberturaPage() {
 
   return (
     <div>
-      <section className="bg-brand-900 py-16 text-white">
-        <div className="container-page">
-          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-brand-200">
-            <MapPinned className="h-3.5 w-3.5" /> Zona de servicio
-          </span>
-          <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">Cobertura</h1>
-          <p className="mt-3 max-w-2xl text-brand-100">
-            Sectores y veredas que abastece {config.siglas || config.nombre}, con base en los usuarios registrados.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Zona de servicio"
+        eyebrowIcon={<MapPinned className="h-3.5 w-3.5" />}
+        title="Cobertura"
+        description={`Sectores y veredas que abastece ${config.siglas || config.nombre}, con base en los usuarios registrados.`}
+        imageSrc="/galeria-inicial/03.jpeg"
+      />
 
       <section className="container-page py-14">
         <SectionHeading

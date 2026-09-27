@@ -41,19 +41,15 @@ export default async function PanelLayout({ children }: { children: React.ReactN
   return (
     <div className="flex min-h-screen bg-slate-100">
       <aside className="hidden w-64 shrink-0 flex-col border-r border-slate-200 bg-white md:flex">
-        <div className="flex h-16 items-center gap-2.5 border-b border-slate-200 px-5">
+        <div className="flex h-16 items-center border-b border-slate-200 px-5">
           {config.logoUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={config.logoUrl} alt={config.nombre} className="h-9 w-auto object-contain" />
+            <img src={config.logoUrl} alt={config.nombre} className="h-11 w-auto object-contain" />
           ) : (
             <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-600 text-white">
               <Droplets className="h-5 w-5" />
             </span>
           )}
-          <div className="leading-tight">
-            <p className="text-sm font-semibold text-slate-900">Panel interno</p>
-            <p className="text-xs text-slate-500">{config.nombre}</p>
-          </div>
         </div>
         <nav className="flex-1 space-y-1 px-3 py-4">
           {links.map((link) => (
