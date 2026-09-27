@@ -6,11 +6,32 @@ import { getConfiguracion } from "@/lib/data";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const sora = Sora({ subsets: ["latin"], variable: "--font-display" });
 
+const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : "http://localhost:3000";
+
 export async function generateMetadata(): Promise<Metadata> {
   const config = await getConfiguracion();
+  const nombreCorto = config.siglas || config.nombre;
+
   return {
-    title: { default: `${config.nombre}`, template: `%s | ${config.nombre}` },
+    metadataBase: new URL(siteUrl),
+    title: { default: config.nombre, template: `%s | ${nombreCorto}` },
     description: config.eslogan,
+    openGraph: {
+      type: "website",
+      locale: "es_CO",
+      siteName: nombreCorto,
+      title: config.nombre,
+      description: config.eslogan,
+      images: config.logoUrl ? [{ url: config.logoUrl, width: 600, height: 312, alt: config.nombre }] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: config.nombre,
+      description: config.eslogan,
+      images: config.logoUrl ? [config.logoUrl] : [],
+    },
   };
 }
 
