@@ -96,7 +96,7 @@ export default function ConfiguracionForm({ configuracion }: Props) {
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-soft">
         <h2 className="font-display text-base font-semibold text-slate-900">Identidad</h2>
 
-        <div className="mt-4 flex items-center gap-4">
+        <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center">
           <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 p-1.5">
             {values.logoUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
@@ -105,7 +105,7 @@ export default function ConfiguracionForm({ configuracion }: Props) {
               <span className="text-xs text-slate-400">Sin logo</span>
             )}
           </div>
-          <div>
+          <div className="min-w-0 flex-1">
             <label className="text-sm font-medium text-slate-700">Logo</label>
             <div className="mt-1">
               <input
@@ -113,7 +113,7 @@ export default function ConfiguracionForm({ configuracion }: Props) {
                 type="file"
                 accept="image/jpeg,image/png,image/webp"
                 onChange={handleLogoChange}
-                className="text-sm file:mr-3 file:rounded-md file:border-0 file:bg-brand-50 file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-brand-700"
+                className="w-full text-sm file:mr-3 file:rounded-md file:border-0 file:bg-brand-50 file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-brand-700"
               />
             </div>
             {uploadingLogo && (
