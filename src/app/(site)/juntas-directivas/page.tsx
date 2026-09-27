@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CalendarRange, Users } from "lucide-react";
 import { getConfiguracion, getJuntas, type JuntaPlain } from "@/lib/data";
 import SectionHeading from "@/components/ui/SectionHeading";
+import PageHero from "@/components/site/PageHero";
 
 export const metadata = { title: "Juntas Directivas" };
 
@@ -20,18 +21,12 @@ export default async function JuntasDirectivasPage() {
 
   return (
     <div>
-      <section className="bg-brand-900 py-16 text-white">
-        <div className="container-page">
-          <span className="text-xs font-semibold uppercase tracking-widest text-brand-200">
-            Gobierno comunitario
-          </span>
-          <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">Juntas Directivas</h1>
-          <p className="mt-3 max-w-2xl text-brand-100">
-            Cada periodo dura 4 años y es elegido por la Asamblea General de usuarios, desde la
-            fundación en {config.anioFundacion} hasta hoy.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Gobierno comunitario"
+        title="Juntas Directivas"
+        description={`Cada periodo dura 4 años y es elegido por la Asamblea General de usuarios, desde la fundación en ${config.anioFundacion} hasta hoy.`}
+        imageSrc="/galeria-inicial/08.jpeg"
+      />
 
       <section className="container-page py-14">
         <SectionHeading

@@ -17,7 +17,7 @@ export default async function CoberturaPage() {
           </span>
           <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">Cobertura</h1>
           <p className="mt-3 max-w-2xl text-brand-100">
-            Sectores y veredas que abastece {config.nombre}, con base en los usuarios registrados.
+            Sectores y veredas que abastece {config.siglas || config.nombre}, con base en los usuarios registrados.
           </p>
         </div>
       </section>

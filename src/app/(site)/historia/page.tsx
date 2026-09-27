@@ -1,6 +1,7 @@
 import { BookOpen, Compass, Target } from "lucide-react";
 import { getConfiguracion } from "@/lib/data";
 import SectionHeading from "@/components/ui/SectionHeading";
+import PageHero from "@/components/site/PageHero";
 
 export const metadata = { title: "Nuestra historia" };
 
@@ -10,17 +11,12 @@ export default async function HistoriaPage() {
 
   return (
     <div>
-      <section className="bg-brand-900 py-16 text-white">
-        <div className="container-page">
-          <span className="text-xs font-semibold uppercase tracking-widest text-brand-200">
-            Desde {config.anioFundacion}
-          </span>
-          <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">Nuestra historia</h1>
-          <p className="mt-3 max-w-2xl text-brand-100">
-            El camino recorrido por {config.nombre} para llevar agua potable a {config.vereda}.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={`Desde ${config.anioFundacion}`}
+        title="Nuestra historia"
+        description={`El camino recorrido por ${config.siglas || config.nombre} para llevar agua potable a ${config.vereda}.`}
+        imageSrc="/galeria-inicial/06.jpeg"
+      />
 
       <section className="container-page py-14">
         <div className="grid gap-10 lg:grid-cols-3">

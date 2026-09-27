@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Download, FileText, ShieldCheck } from "lucide-react";
 import { getInformes } from "@/lib/data";
 import SectionHeading from "@/components/ui/SectionHeading";
+import PageHero from "@/components/site/PageHero";
 
 export const metadata = { title: "Documentos y Transparencia" };
 
@@ -19,21 +20,13 @@ export default async function InformesPage() {
 
   return (
     <div>
-      <section className="bg-brand-900 py-16 text-white">
-        <div className="container-page">
-          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-brand-200">
-            <ShieldCheck className="h-3.5 w-3.5" /> Transparencia
-          </span>
-          <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">
-            Documentos y transparencia
-          </h1>
-          <p className="mt-3 max-w-2xl text-brand-100">
-            Estatutos, actas de asamblea, certificado de Cámara de Comercio, declaraciones DIAN e
-            informes financieros, organizados por año. Documentos públicos para consulta y
-            descarga de toda la comunidad.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Transparencia"
+        eyebrowIcon={<ShieldCheck className="h-3.5 w-3.5" />}
+        title="Documentos y transparencia"
+        description="Estatutos, actas de asamblea, certificado de Cámara de Comercio, declaraciones DIAN e informes financieros, organizados por año. Documentos públicos para consulta y descarga de toda la comunidad."
+        imageSrc="/galeria-inicial/017.jpeg"
+      />
 
       <section className="container-page py-14">
         <SectionHeading eyebrow="Documentos públicos" title="Todos los informes" />

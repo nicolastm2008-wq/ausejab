@@ -23,7 +23,7 @@ export default async function ContactoPage() {
           </span>
           <h1 className="mt-2 font-display text-3xl font-bold sm:text-4xl">Contacto</h1>
           <p className="mt-3 max-w-2xl text-brand-100">
-            Comunícate con {config.nombre} para peticiones, quejas, reclamos o sugerencias.
+            Comunícate con {config.siglas || config.nombre} para peticiones, quejas, reclamos o sugerencias.
           </p>
         </div>
       </section>
