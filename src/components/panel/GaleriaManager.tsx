@@ -123,7 +123,7 @@ export default function GaleriaManager({ fotos }: { fotos: FotoGaleriaPlain[] })
         {fotos.map((foto) => (
           <div key={foto._id} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft">
             <div className="relative h-40 w-full bg-slate-100">
-              <Image src={foto.url} alt={foto.titulo} fill sizes="300px" className="object-cover" unoptimized />
+              <Image src={foto.url} alt={foto.titulo} fill sizes="300px" className="object-cover" />
             </div>
             <div className="flex items-start justify-between gap-2 p-4">
               <div>

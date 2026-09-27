@@ -156,7 +156,6 @@ export default async function HomePage() {
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover"
-              unoptimized
             />
           </div>
           <div>
@@ -257,7 +256,6 @@ export default async function HomePage() {
                     fill
                     sizes="(min-width: 1024px) 25vw, 50vw"
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    unoptimized
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3">
                     <p className="text-xs font-medium text-white">{foto.titulo}</p>

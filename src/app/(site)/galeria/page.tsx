@@ -31,7 +31,7 @@ export default async function GaleriaPage() {
             {fotos.map((foto) => (
               <figure key={foto._id} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft">
                 <div className="relative h-48 w-full bg-slate-100">
-                  <Image src={foto.url} alt={foto.titulo} fill sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover" unoptimized />
+                  <Image src={foto.url} alt={foto.titulo} fill sizes="(min-width: 1024px) 33vw, 100vw" className="object-cover" />
                 </div>
                 <figcaption className="p-4">
                   <p className="text-sm font-semibold text-slate-900">{foto.titulo}</p>

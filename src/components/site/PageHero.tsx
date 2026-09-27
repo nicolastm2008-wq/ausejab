@@ -18,7 +18,7 @@ export default function PageHero({
     <section className="relative overflow-hidden bg-brand-900 py-16 text-white sm:py-20">
       {imageSrc && (
         <div className="absolute inset-0">
-          <Image src={imageSrc} alt="" fill sizes="100vw" className="object-cover" unoptimized />
+          <Image src={imageSrc} alt="" fill sizes="100vw" priority className="object-cover" />
           <div className="absolute inset-0 bg-gradient-to-br from-brand-950/95 via-brand-900/90 to-aqua-900/80" />
         </div>
       )}
