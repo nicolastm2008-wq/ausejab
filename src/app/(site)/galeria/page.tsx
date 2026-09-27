@@ -3,6 +3,20 @@ import { Camera } from "lucide-react";
 import { getFotosGaleria } from "@/lib/data";
 import SectionHeading from "@/components/ui/SectionHeading";
 import PageHero from "@/components/site/PageHero";
+import VideoCard from "@/components/site/VideoCard";
+
+const VIDEOS = [
+  {
+    src: "/videos-comunitarios/01.mp4",
+    poster: "/videos-comunitarios/01-poster.jpg",
+    titulo: "Bocatoma: fuente de captación del acueducto",
+  },
+  {
+    src: "/videos-comunitarios/02.mp4",
+    poster: "/videos-comunitarios/02-poster.jpg",
+    titulo: "Presentación del nuevo laboratorio de calidad del agua",
+  },
+];
 
 export const metadata = { title: "Galería" };
 
@@ -41,6 +55,15 @@ export default async function GaleriaPage() {
             ))}
           </div>
         )}
+      </section>
+
+      <section className="container-page pb-14">
+        <SectionHeading eyebrow="Videos" title="Videos comunitarios" />
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          {VIDEOS.map((video) => (
+            <VideoCard key={video.src} {...video} />
+          ))}
+        </div>
       </section>
     </div>
   );

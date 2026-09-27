@@ -30,6 +30,25 @@ export default async function HomePage() {
   const fotosDestacadas = fotos.slice(0, 4);
   const usuariosRegistrados = cobertura.reduce((acc, c) => acc + c.usuarios, 0);
 
+  const stats = [
+    { icon: <Landmark className="h-5 w-5" />, label: "Años de servicio", value: `${antiguedad}+` },
+    usuariosRegistrados > 0 && {
+      icon: <Users className="h-5 w-5" />,
+      label: "Usuarios registrados",
+      value: `${usuariosRegistrados}`,
+    },
+    cobertura.length > 0 && {
+      icon: <MapPinned className="h-5 w-5" />,
+      label: "Sectores cubiertos",
+      value: `${cobertura.length}`,
+    },
+    informes.length > 0 && {
+      icon: <FileText className="h-5 w-5" />,
+      label: "Documentos publicados",
+      value: `${informes.length}`,
+    },
+  ].filter(Boolean) as { icon: React.ReactNode; label: string; value: string }[];
+
   const accesos = [
     {
       href: "/historia",
@@ -116,11 +135,10 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <StatCard icon={<Landmark className="h-5 w-5" />} label="Años de servicio" value={`${antiguedad}+`} />
-            <StatCard icon={<Users className="h-5 w-5" />} label="Usuarios registrados" value={`${usuariosRegistrados}`} />
-            <StatCard icon={<MapPinned className="h-5 w-5" />} label="Sectores cubiertos" value={`${cobertura.length}`} />
-            <StatCard icon={<FileText className="h-5 w-5" />} label="Documentos publicados" value={`${informes.length}`} />
+          <div className={`grid gap-4 ${stats.length > 1 ? "grid-cols-2" : "max-w-[220px] grid-cols-1"}`}>
+            {stats.map((stat) => (
+              <StatCard key={stat.label} {...stat} />
+            ))}
           </div>
         </div>
         <div className="absolute inset-x-0 bottom-0 z-10 h-16 bg-wave-pattern bg-repeat-x bg-bottom opacity-90" />
