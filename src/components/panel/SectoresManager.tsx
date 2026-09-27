@@ -253,8 +253,8 @@ export default function SectoresManager({ predios }: { predios: PredioPlain[] })
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-center gap-3">
-        <div className="relative flex-1 min-w-[200px]">
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+        <div className="relative w-full sm:min-w-[200px] sm:flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
@@ -267,7 +267,7 @@ export default function SectoresManager({ predios }: { predios: PredioPlain[] })
         <select
           value={filtroSector}
           onChange={(e) => setFiltroSector(e.target.value)}
-          className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
+          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm sm:w-auto"
         >
           <option value="">Todos los sectores</option>
           {sectores.map((s) => (
@@ -279,7 +279,7 @@ export default function SectoresManager({ predios }: { predios: PredioPlain[] })
         <select
           value={filtroEstado}
           onChange={(e) => setFiltroEstado(e.target.value)}
-          className="rounded-lg border border-slate-300 px-3 py-2 text-sm"
+          className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm sm:w-auto"
         >
           <option value="">Todos los estados</option>
           {ESTADOS_PREDIO.map((e) => (
@@ -291,7 +291,7 @@ export default function SectoresManager({ predios }: { predios: PredioPlain[] })
         {!creating && !editingId && (
           <button
             onClick={startCreate}
-            className="inline-flex items-center gap-2 rounded-full bg-brand-700 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-800"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-700 px-4 py-2 text-sm font-semibold text-white hover:bg-brand-800 sm:w-auto"
           >
             <Plus className="h-4 w-4" /> Nuevo registro
           </button>
@@ -304,8 +304,8 @@ export default function SectoresManager({ predios }: { predios: PredioPlain[] })
         {filtrados.length} de {predios.length} registro(s)
       </p>
 
-      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-soft">
-        <table className="w-full text-left text-sm">
+      <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-soft">
+        <table className="w-full min-w-[640px] text-left text-sm">
           <thead className="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
             <tr>
               <th className="px-4 py-3 font-medium">Usuario</th>

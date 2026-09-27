@@ -14,6 +14,7 @@ import {
 import { getSession } from "@/lib/auth";
 import { getConfiguracion } from "@/lib/data";
 import LogoutButton from "@/components/panel/LogoutButton";
+import PanelMobileNav from "@/components/panel/PanelMobileNav";
 
 export default async function PanelLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
@@ -69,14 +70,23 @@ export default async function PanelLayout({ children }: { children: React.ReactN
         </div>
       </aside>
 
-      <div className="flex flex-1 flex-col">
+      <div className="relative flex min-w-0 flex-1 flex-col">
         <header className="flex h-16 items-center justify-between border-b border-slate-200 bg-white px-4 md:px-8">
-          <p className="text-sm text-slate-500">
-            Bienvenido, <span className="font-semibold text-slate-900">{session.nombre}</span>{" "}
-            <span className="ml-1 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500">
-              {session.rol}
-            </span>
-          </p>
+          <div className="flex items-center gap-1">
+            <PanelMobileNav
+              links={links.map((link) => ({
+                href: link.href,
+                label: link.label,
+                icon: <link.icon className="h-4 w-4" />,
+              }))}
+            />
+            <p className="text-sm text-slate-500">
+              Bienvenido, <span className="font-semibold text-slate-900">{session.nombre}</span>{" "}
+              <span className="ml-1 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500">
+                {session.rol}
+              </span>
+            </p>
+          </div>
           <LogoutButton />
         </header>
         <main className="flex-1 p-4 md:p-8">{children}</main>

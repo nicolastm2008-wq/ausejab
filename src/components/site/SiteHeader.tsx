@@ -14,6 +14,17 @@ const NAV_LINKS = [
   { href: "/contacto", label: "Contacto" },
 ];
 
+const MOBILE_NAV_LINKS = [
+  { href: "/", label: "Inicio" },
+  { href: "/historia", label: "Historia" },
+  { href: "/juntas-directivas", label: "Juntas Directivas" },
+  { href: "/informes", label: "Informes" },
+  { href: "/avisos", label: "Avisos" },
+  { href: "/cobertura", label: "Cobertura" },
+  { href: "/galeria", label: "Galería" },
+  { href: "/contacto", label: "Contacto" },
+];
+
 export default function SiteHeader({ config }: { config: ConfiguracionPlain }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -70,7 +81,7 @@ export default function SiteHeader({ config }: { config: ConfiguracionPlain }) {
       {open && (
         <nav className="border-t border-slate-200 bg-white lg:hidden">
           <div className="container-page flex flex-col gap-1 py-3">
-            {NAV_LINKS.map((link) => (
+            {MOBILE_NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}

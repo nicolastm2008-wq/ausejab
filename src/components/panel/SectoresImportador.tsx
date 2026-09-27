@@ -143,17 +143,17 @@ export default function SectoresImportador() {
       </div>
 
       {!parseResult && (
-        <div className="mt-4 flex flex-wrap items-center gap-3">
+        <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
           <input
             ref={fileInputRef}
             type="file"
             accept=".xlsx,.xls,.csv"
-            className="flex-1 min-w-[220px] rounded-lg border border-slate-300 px-3 py-2 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-aqua-50 file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-aqua-700"
+            className="w-full min-w-0 flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-aqua-50 file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-aqua-700"
           />
           <button
             onClick={handleAnalizar}
             disabled={analizando}
-            className="inline-flex items-center gap-2 rounded-full bg-aqua-700 px-4 py-2 text-sm font-semibold text-white hover:bg-aqua-800 disabled:opacity-60"
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-aqua-700 px-4 py-2 text-sm font-semibold text-white hover:bg-aqua-800 disabled:opacity-60"
           >
             <Upload className="h-4 w-4" /> {analizando ? "Analizando..." : "Analizar archivo"}
           </button>

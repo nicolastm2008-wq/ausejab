@@ -173,29 +173,31 @@ export default function JuntasManager({ juntas }: { juntas: JuntaPlain[] }) {
         <label className="text-sm font-medium text-slate-700">Integrantes</label>
         <div className="mt-2 space-y-2">
           {form.miembros.map((m, idx) => (
-            <div key={idx} className="flex flex-wrap items-center gap-2">
+            <div key={idx} className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center">
               <input
                 type="text"
                 placeholder="Nombre completo"
                 value={m.nombre}
                 onChange={(e) => updateMiembro(idx, "nombre", e.target.value)}
-                className="min-w-[180px] flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                className="w-full min-w-0 rounded-lg border border-slate-300 px-3 py-2 text-sm sm:flex-1"
               />
-              <input
-                type="text"
-                list="cargos-sugeridos"
-                placeholder="Cargo"
-                value={m.cargo}
-                onChange={(e) => updateMiembro(idx, "cargo", e.target.value)}
-                className="w-40 rounded-lg border border-slate-300 px-3 py-2 text-sm"
-              />
-              <button
-                type="button"
-                onClick={() => removeMiembro(idx)}
-                className="rounded-lg p-2 text-slate-400 hover:bg-red-50 hover:text-red-600"
-              >
-                <Trash2 className="h-4 w-4" />
-              </button>
+              <div className="flex items-center gap-2">
+                <input
+                  type="text"
+                  list="cargos-sugeridos"
+                  placeholder="Cargo"
+                  value={m.cargo}
+                  onChange={(e) => updateMiembro(idx, "cargo", e.target.value)}
+                  className="w-full min-w-0 rounded-lg border border-slate-300 px-3 py-2 text-sm sm:w-40"
+                />
+                <button
+                  type="button"
+                  onClick={() => removeMiembro(idx)}
+                  className="shrink-0 rounded-lg p-2 text-slate-400 hover:bg-red-50 hover:text-red-600"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              </div>
             </div>
           ))}
         </div>
