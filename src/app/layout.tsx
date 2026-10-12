@@ -11,7 +11,12 @@ const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
   : "http://localhost:3000";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const config = await getConfiguracion();
+  const config = await getConfiguracion().catch(() => ({
+    nombre: "Acueducto Comunitario",
+    siglas: "AUSAVESJAB",
+    eslogan: "Servicio de agua potable comunitario",
+    logoUrl: undefined as string | undefined,
+  }));
   const nombreCorto = config.siglas || config.nombre;
 
   return {

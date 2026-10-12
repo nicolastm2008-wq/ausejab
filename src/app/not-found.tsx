@@ -2,8 +2,10 @@ import Link from "next/link";
 import { ArrowLeft, Droplets } from "lucide-react";
 import { getConfiguracion } from "@/lib/data";
 
+const DEFAULT_CONFIG = { nombre: "AUSAVESJAB", logoUrl: "" };
+
 export default async function NotFound() {
-  const config = await getConfiguracion();
+  const config = await getConfiguracion().catch(() => DEFAULT_CONFIG);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-brand-900 via-brand-800 to-aqua-800 px-4 text-center text-white">
