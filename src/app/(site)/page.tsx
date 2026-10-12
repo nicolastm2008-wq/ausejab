@@ -55,36 +55,48 @@ export default async function HomePage() {
       title: "Reseña histórica",
       desc: "Cómo nació el acueducto y su misión y visión.",
       icon: <Landmark className="h-5 w-5" />,
+      color: "bg-brand-50 text-brand-700",
+      border: "border-brand-100",
     },
     {
       href: "/juntas-directivas",
       title: "Juntas directivas",
       desc: `Cada periodo desde ${config.anioFundacion}, con sus integrantes.`,
       icon: <Users className="h-5 w-5" />,
+      color: "bg-aqua-50 text-aqua-700",
+      border: "border-aqua-100",
     },
     {
       href: "/informes",
       title: "Documentos",
       desc: "Estatutos, actas, Cámara de Comercio e informes por año.",
       icon: <FileText className="h-5 w-5" />,
+      color: "bg-violet-50 text-violet-700",
+      border: "border-violet-100",
     },
     {
       href: "/avisos",
       title: "Avisos",
       desc: "Cortes, mantenimientos y novedades del servicio.",
       icon: <Megaphone className="h-5 w-5" />,
+      color: "bg-amber-50 text-amber-700",
+      border: "border-amber-100",
     },
     {
       href: "/cobertura",
       title: "Cobertura",
       desc: "Sectores y veredas que abastece el acueducto.",
       icon: <MapPinned className="h-5 w-5" />,
+      color: "bg-emerald-50 text-emerald-700",
+      border: "border-emerald-100",
     },
     {
       href: "/galeria",
       title: "Galería",
       desc: "Fotos de mantenimientos y trabajo comunitario.",
       icon: <Camera className="h-5 w-5" />,
+      color: "bg-rose-50 text-rose-700",
+      border: "border-rose-100",
     },
   ];
 
@@ -150,9 +162,9 @@ export default async function HomePage() {
           <Link
             key={item.href}
             href={item.href}
-            className="group relative z-10 rounded-2xl border border-slate-200 bg-white p-6 shadow-soft transition-all hover:-translate-y-1 hover:shadow-lg"
+            className={`group relative z-10 overflow-hidden rounded-2xl border bg-white p-6 shadow-soft transition-all hover:-translate-y-1 hover:shadow-lg ${item.border}`}
           >
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
+            <span className={`flex h-10 w-10 items-center justify-center rounded-xl ${item.color}`}>
               {item.icon}
             </span>
             <h3 className="mt-4 font-display text-base font-semibold text-slate-900">{item.title}</h3>
@@ -300,25 +312,47 @@ export default async function HomePage() {
               </Link>
             </div>
             <div className="mt-8 grid gap-4 sm:grid-cols-3">
-              {ultimosInformes.map((inf) => (
-                <a
-                  key={inf._id}
-                  href={inf.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-5 shadow-soft transition-all hover:-translate-y-1 hover:shadow-lg"
-                >
-                  <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700">
-                    <FileText className="h-3 w-3" /> {inf.anio}
-                  </span>
-                  <p className="font-medium text-slate-900">{inf.titulo}</p>
-                  <p className="text-xs text-slate-500">{inf.tipo}</p>
-                </a>
-              ))}
+              {ultimosInformes.map((inf) => {
+                const pending = inf.url === "#pendiente" || inf.url === "#";
+                const cardClass = `flex flex-col gap-2 rounded-2xl border border-slate-200 bg-white p-5 shadow-soft${pending ? " opacity-80" : " transition-all hover:-translate-y-1 hover:shadow-lg"}`;
+                const inner = (
+                  <>
+                    <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-brand-50 px-2.5 py-1 text-xs font-medium text-brand-700">
+                      <FileText className="h-3 w-3" /> {inf.anio}
+                    </span>
+                    <p className="font-medium text-slate-900">{inf.titulo}</p>
+                    <p className="text-xs text-slate-500">{inf.tipo}</p>
+                    {pending && (
+                      <span className="mt-1 inline-flex w-fit rounded-full bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-700">Próximamente</span>
+                    )}
+                  </>
+                );
+                return pending ? (
+                  <div key={inf._id} className={cardClass}>{inner}</div>
+                ) : (
+                  <a key={inf._id} href={inf.url} target="_blank" rel="noreferrer" className={cardClass}>{inner}</a>
+                );
+              })}
             </div>
           </div>
         </section>
       )}
+
+      {/* CTA contacto */}
+      <section className="bg-gradient-to-br from-brand-800 to-aqua-800 py-14 text-white">
+        <div className="container-page flex flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left">
+          <div>
+            <p className="font-display text-xl font-semibold">¿Necesitas ayuda o tienes una solicitud?</p>
+            <p className="mt-1 text-brand-200 text-sm">Llámanos, escríbenos por WhatsApp o envía un correo electrónico.</p>
+          </div>
+          <Link
+            href="/contacto"
+            className="shrink-0 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-brand-800 shadow-soft transition-transform hover:-translate-y-0.5"
+          >
+            Contáctanos <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </section>
     </div>
   );
 }

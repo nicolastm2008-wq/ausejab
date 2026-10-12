@@ -32,14 +32,19 @@ export default function SiteHeader({ config }: { config: ConfiguracionPlain }) {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur">
       <div className="container-page flex h-20 items-center justify-between">
-        <Link href="/" onClick={() => setOpen(false)}>
+        <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-2.5">
           {config.logoUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={config.logoUrl} alt={config.nombre} className="h-16 w-auto object-contain" />
+            <img src={config.logoUrl} alt={config.nombre} className="h-14 w-auto object-contain" />
           ) : (
-            <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-600 text-white shadow-soft">
-              <Droplets className="h-6 w-6" />
-            </span>
+            <>
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-600 text-white shadow-soft">
+                <Droplets className="h-5 w-5" />
+              </span>
+              <span className="font-display text-base font-bold text-brand-800 leading-tight hidden sm:block">
+                {config.siglas || config.nombre.split(" ").slice(0, 2).join(" ")}
+              </span>
+            </>
           )}
         </Link>
 
