@@ -51,34 +51,43 @@ export default async function InformesPage() {
                 <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {informes
                     .filter((i) => i.anio === anio)
-                    .map((inf) => (
-                      <a
-                        key={inf._id}
-                        href={inf.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="group flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-soft transition-all hover:-translate-y-1 hover:shadow-lg"
-                      >
-                        <div className="flex items-start justify-between gap-2">
-                          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
-                            <FileText className="h-5 w-5" />
-                          </span>
-                          <Download className="h-4 w-4 text-slate-400 transition-colors group-hover:text-brand-700" />
-                        </div>
-                        <div>
-                          <p className="text-xs font-medium uppercase tracking-wide text-brand-600">
-                            {inf.tipo}
-                          </p>
-                          <p className="mt-0.5 font-medium text-slate-900">{inf.titulo}</p>
-                          {inf.descripcion && (
-                            <p className="mt-1 text-xs text-slate-500">{inf.descripcion}</p>
+                    .map((inf) => {
+                      const pending = inf.url === "#pendiente" || inf.url === "#";
+                      const Wrapper = pending ? "div" : "a";
+                      const wrapperProps = pending
+                        ? {}
+                        : { href: inf.url, target: "_blank", rel: "noreferrer" };
+                      return (
+                        <Wrapper
+                          key={inf._id}
+                          {...(wrapperProps as Record<string, string>)}
+                          className={`group flex flex-col gap-3 rounded-2xl border bg-white p-5 shadow-soft ${pending ? "border-slate-200 opacity-75" : "border-slate-200 transition-all hover:-translate-y-1 hover:shadow-lg"}`}
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
+                              <FileText className="h-5 w-5" />
+                            </span>
+                            {pending ? (
+                              <span className="rounded-full bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-700">Próximamente</span>
+                            ) : (
+                              <Download className="h-4 w-4 text-slate-400 transition-colors group-hover:text-brand-700" />
+                            )}
+                          </div>
+                          <div>
+                            <p className="text-xs font-medium uppercase tracking-wide text-brand-600">
+                              {inf.tipo}
+                            </p>
+                            <p className="mt-0.5 font-medium text-slate-900">{inf.titulo}</p>
+                            {inf.descripcion && (
+                              <p className="mt-1 text-xs text-slate-500">{inf.descripcion}</p>
+                            )}
+                          </div>
+                          {inf.tamanioBytes > 0 && (
+                            <span className="text-xs text-slate-400">{formatBytes(inf.tamanioBytes)}</span>
                           )}
-                        </div>
-                        {inf.tamanioBytes > 0 && (
-                          <span className="text-xs text-slate-400">{formatBytes(inf.tamanioBytes)}</span>
-                        )}
-                      </a>
-                    ))}
+                        </Wrapper>
+                      );
+                    })}
                 </div>
               </div>
             ))}
