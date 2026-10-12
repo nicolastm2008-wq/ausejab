@@ -7,6 +7,7 @@ import JuntaDirectiva from "@/models/JuntaDirectiva";
 import Informe from "@/models/Informe";
 
 export async function GET(request: Request) {
+  try {
   const key = new URL(request.url).searchParams.get("key");
   const expected = process.env.INIT_SECRET;
   if (!expected || key !== expected) {
@@ -122,4 +123,8 @@ export async function GET(request: Request) {
     configActualizada,
     junta: junta ? `${junta.periodoInicio}-${junta.periodoFin}` : null,
   });
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return NextResponse.json({ error: msg }, { status: 500 });
+  }
 }
