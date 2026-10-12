@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",
-    "postbuild": "tsx scripts/seed.ts",
     "start": "next start -p 3000",
     "lint": "eslint .",
     "seed": "tsx scripts/seed.ts"
