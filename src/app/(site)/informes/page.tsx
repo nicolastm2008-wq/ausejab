@@ -53,16 +53,9 @@ export default async function InformesPage() {
                     .filter((i) => i.anio === anio)
                     .map((inf) => {
                       const pending = inf.url === "#pendiente" || inf.url === "#";
-                      const Wrapper = pending ? "div" : "a";
-                      const wrapperProps = pending
-                        ? {}
-                        : { href: inf.url, target: "_blank", rel: "noreferrer" };
-                      return (
-                        <Wrapper
-                          key={inf._id}
-                          {...(wrapperProps as Record<string, string>)}
-                          className={`group flex flex-col gap-3 rounded-2xl border bg-white p-5 shadow-soft ${pending ? "border-slate-200 opacity-75" : "border-slate-200 transition-all hover:-translate-y-1 hover:shadow-lg"}`}
-                        >
+                      const cardClass = `group flex flex-col gap-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-soft${pending ? " opacity-75" : " transition-all hover:-translate-y-1 hover:shadow-lg"}`;
+                      const inner = (
+                        <>
                           <div className="flex items-start justify-between gap-2">
                             <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
                               <FileText className="h-5 w-5" />
@@ -74,9 +67,7 @@ export default async function InformesPage() {
                             )}
                           </div>
                           <div>
-                            <p className="text-xs font-medium uppercase tracking-wide text-brand-600">
-                              {inf.tipo}
-                            </p>
+                            <p className="text-xs font-medium uppercase tracking-wide text-brand-600">{inf.tipo}</p>
                             <p className="mt-0.5 font-medium text-slate-900">{inf.titulo}</p>
                             {inf.descripcion && (
                               <p className="mt-1 text-xs text-slate-500">{inf.descripcion}</p>
@@ -85,7 +76,12 @@ export default async function InformesPage() {
                           {inf.tamanioBytes > 0 && (
                             <span className="text-xs text-slate-400">{formatBytes(inf.tamanioBytes)}</span>
                           )}
-                        </Wrapper>
+                        </>
+                      );
+                      return pending ? (
+                        <div key={inf._id} className={cardClass}>{inner}</div>
+                      ) : (
+                        <a key={inf._id} href={inf.url} target="_blank" rel="noreferrer" className={cardClass}>{inner}</a>
                       );
                     })}
                 </div>
