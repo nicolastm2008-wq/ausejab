@@ -17,32 +17,29 @@ async function main() {
   const adminPassword = process.env.ADMIN_PASSWORD ?? "";
   const adminNombre = process.env.ADMIN_NAME ?? "Administrador";
 
-  if (!adminEmail || !adminPassword) {
-    throw new Error("Define ADMIN_EMAIL y ADMIN_PASSWORD en .env.local antes de sembrar datos");
-  }
-  if (adminPassword.length < 8) {
-    throw new Error("ADMIN_PASSWORD debe tener al menos 8 caracteres");
-  }
-
   await mongoose.connect(uri);
   console.log("Conectado a MongoDB");
 
-  const existente = await Usuario.findOne({ email: adminEmail });
-  if (existente) {
-    existente.passwordHash = await bcrypt.hash(adminPassword, 12);
-    existente.rol = "admin";
-    existente.activo = true;
-    await existente.save();
-    console.log(`Usuario administrador actualizado: ${adminEmail}`);
+  if (adminEmail && adminPassword && adminPassword.length >= 8) {
+    const existente = await Usuario.findOne({ email: adminEmail });
+    if (existente) {
+      existente.passwordHash = await bcrypt.hash(adminPassword, 12);
+      existente.rol = "admin";
+      existente.activo = true;
+      await existente.save();
+      console.log(`Usuario administrador actualizado: ${adminEmail}`);
+    } else {
+      await Usuario.create({
+        nombre: adminNombre,
+        email: adminEmail,
+        passwordHash: await bcrypt.hash(adminPassword, 12),
+        rol: "admin",
+        activo: true,
+      });
+      console.log(`Usuario administrador creado: ${adminEmail}`);
+    }
   } else {
-    await Usuario.create({
-      nombre: adminNombre,
-      email: adminEmail,
-      passwordHash: await bcrypt.hash(adminPassword, 12),
-      rol: "admin",
-      activo: true,
-    });
-    console.log(`Usuario administrador creado: ${adminEmail}`);
+    console.log("ADMIN_EMAIL/ADMIN_PASSWORD no definidos o inválidos — se omite creación de usuario.");
   }
 
   const configuracion = await Configuracion.findOne();
