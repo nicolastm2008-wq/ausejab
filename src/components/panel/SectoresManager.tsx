@@ -172,7 +172,7 @@ export default function SectoresManager({ predios }: { predios: PredioPlain[] })
             <label className="text-sm font-medium text-slate-700">{label}</label>
             <input
               type="text"
-              value={(form as Record<string, string>)[key]}
+              value={(form as unknown as Record<string, string>)[key]}
               onChange={(e) => setForm((f) => ({ ...f, [key]: e.target.value }))}
               list={datalist}
               className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
@@ -307,7 +307,7 @@ export default function SectoresManager({ predios }: { predios: PredioPlain[] })
                       <div className="flex items-center gap-1.5">
                         {expandedId === p._id ? <ChevronUp className="h-3 w-3 text-slate-400 shrink-0" /> : <ChevronDown className="h-3 w-3 text-slate-400 shrink-0" />}
                         <span className="font-medium text-slate-900">{p.nombreUsuario}</span>
-                        {p.necesitaActualizar && <RefreshCw className="h-3 w-3 text-amber-500 shrink-0" title="Requiere actualización" />}
+                        {p.necesitaActualizar && <span title="Requiere actualización"><RefreshCw className="h-3 w-3 text-amber-500 shrink-0" /></span>}
                       </div>
                     </td>
                     <td className="px-3 py-2.5 font-mono text-slate-600 text-xs">{p.cedula || "—"}</td>
