@@ -10,7 +10,7 @@ import {
   Settings,
   Users,
   UserCog,
-  BookUser,
+
 } from "lucide-react";
 import { getSession } from "@/lib/auth";
 import { getConfiguracion } from "@/lib/data";
@@ -32,7 +32,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
     { href: "/panel/avisos", label: "Avisos", icon: Megaphone },
     { href: "/panel/juntas", label: "Juntas directivas", icon: Users },
     { href: "/panel/sectores", label: "Sectores", icon: MapPinned },
-    { href: "/panel/asociados", label: "Asociados", icon: BookUser },
+
     { href: "/panel/informes", label: "Documentos", icon: FileText },
     { href: "/panel/galeria", label: "Galería", icon: ImageIcon },
     { href: "/panel/legal", label: "Política de datos y términos", icon: Scale },
