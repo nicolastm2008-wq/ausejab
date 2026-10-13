@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { href: "/historia", label: "Historia" },
   { href: "/juntas-directivas", label: "Juntas Directivas" },
   { href: "/informes", label: "Informes" },
+  { href: "/suscriptores", label: "Asociados" },
   { href: "/contacto", label: "Contacto" },
 ];
 
@@ -20,6 +21,7 @@ const MOBILE_NAV_LINKS = [
   { href: "/juntas-directivas", label: "Juntas Directivas" },
   { href: "/informes", label: "Informes" },
   { href: "/avisos", label: "Avisos" },
+  { href: "/suscriptores", label: "Asociados" },
   { href: "/cobertura", label: "Cobertura" },
   { href: "/galeria", label: "Galería" },
   { href: "/contacto", label: "Contacto" },

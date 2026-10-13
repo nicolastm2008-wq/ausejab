@@ -7,6 +7,7 @@ import UsuarioModel from "@/models/Usuario";
 import PredioModel from "@/models/Predio";
 import AvisoModel from "@/models/Aviso";
 import FotoGaleriaModel from "@/models/FotoGaleria";
+import SuscriptorModel from "@/models/Suscriptor";
 
 export type ConfiguracionPlain = Configuracion & { _id: string };
 export type JuntaPlain = {
@@ -140,4 +141,53 @@ export async function getFotosGaleria(): Promise<FotoGaleriaPlain[]> {
   await connectDB();
   const docs = await FotoGaleriaModel.find().sort({ createdAt: -1 });
   return JSON.parse(JSON.stringify(docs));
+}
+
+export type SuscriptorPlain = {
+  _id: string;
+  nombre: string;
+  cedula: string;
+  telefono: string;
+  email: string;
+  sector: string;
+  totalPuntos: number;
+  requisitos: string;
+  numInscripcion: string;
+  predios: string[];
+  necesitaActualizar: boolean;
+  notas: string;
+};
+
+export async function getSuscriptores(sector?: string): Promise<SuscriptorPlain[]> {
+  await connectDB();
+  const filter = sector ? { sector } : {};
+  const docs = await SuscriptorModel.find(filter).sort({ nombre: 1 });
+  return JSON.parse(JSON.stringify(docs));
+}
+
+export async function getEstadisticasSuscriptores(): Promise<{
+  total: number;
+  totalPredios: number;
+  porSector: { sector: string; count: number; predios: number }[];
+}> {
+  await connectDB();
+  const docs = await SuscriptorModel.find().select("sector totalPuntos");
+  const plain: { sector: string; totalPuntos: number }[] = JSON.parse(JSON.stringify(docs));
+
+  const total = plain.length;
+  const totalPredios = plain.reduce((s, d) => s + (d.totalPuntos || 1), 0);
+
+  const sectorMap = new Map<string, { count: number; predios: number }>();
+  for (const d of plain) {
+    const e = sectorMap.get(d.sector) ?? { count: 0, predios: 0 };
+    e.count += 1;
+    e.predios += d.totalPuntos || 1;
+    sectorMap.set(d.sector, e);
+  }
+
+  const porSector = Array.from(sectorMap.entries())
+    .map(([sector, { count, predios }]) => ({ sector, count, predios }))
+    .sort((a, b) => a.sector.localeCompare(b.sector));
+
+  return { total, totalPredios, porSector };
 }
