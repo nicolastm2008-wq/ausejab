@@ -6,12 +6,17 @@ export { ESTADOS_PREDIO };
 const PredioSchema = new Schema(
   {
     nombreUsuario: { type: String, required: true, trim: true },
+    cedula: { type: String, default: "", trim: true },
     predio: { type: String, default: "", trim: true },
     sector: { type: String, required: true, trim: true },
     vereda: { type: String, default: "", trim: true },
     codigoMedidor: { type: String, default: "", trim: true },
     estado: { type: String, enum: ESTADOS_PREDIO, default: "Activo" },
     telefono: { type: String, default: "", trim: true },
+    email: { type: String, default: "", trim: true },
+    requisitos: { type: String, default: "", trim: true },
+    numInscripcion: { type: String, default: "", trim: true },
+    necesitaActualizar: { type: Boolean, default: false },
     notas: { type: String, default: "" },
   },
   { timestamps: true },

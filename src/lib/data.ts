@@ -70,12 +70,17 @@ export async function getUsuarios(): Promise<UsuarioPlain[]> {
 export type PredioPlain = {
   _id: string;
   nombreUsuario: string;
+  cedula: string;
   predio: string;
   sector: string;
   vereda: string;
   codigoMedidor: string;
   estado: string;
   telefono: string;
+  email: string;
+  requisitos: string;
+  numInscripcion: string;
+  necesitaActualizar: boolean;
   notas: string;
 };
 

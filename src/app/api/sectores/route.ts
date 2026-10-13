@@ -28,11 +28,16 @@ export async function POST(request: Request) {
   const predio = await Predio.create({
     nombreUsuario,
     sector,
+    cedula: body?.cedula ?? "",
     predio: body?.predio ?? "",
     vereda: body?.vereda ?? "",
     codigoMedidor: body?.codigoMedidor ?? "",
     estado: body?.estado || "Activo",
     telefono: body?.telefono ?? "",
+    email: body?.email ?? "",
+    requisitos: body?.requisitos ?? "",
+    numInscripcion: body?.numInscripcion ?? "",
+    necesitaActualizar: body?.necesitaActualizar ?? false,
     notas: body?.notas ?? "",
   });
 
