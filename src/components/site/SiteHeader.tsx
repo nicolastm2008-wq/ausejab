@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { href: "/historia", label: "Historia" },
   { href: "/juntas-directivas", label: "Juntas Directivas" },
   { href: "/informes", label: "Informes" },
+  { href: "/avisos", label: "Avisos" },
   { href: "/contacto", label: "Contacto" },
 ];
 

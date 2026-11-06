@@ -10,12 +10,12 @@ import {
   Settings,
   Users,
   UserCog,
-
 } from "lucide-react";
 import { getSession } from "@/lib/auth";
 import { getConfiguracion } from "@/lib/data";
 import LogoutButton from "@/components/panel/LogoutButton";
 import PanelMobileNav from "@/components/panel/PanelMobileNav";
+import PanelNavLink from "@/components/panel/PanelNavLink";
 
 export default async function PanelLayout({ children }: { children: React.ReactNode }) {
   const session = await getSession();
@@ -26,20 +26,33 @@ export default async function PanelLayout({ children }: { children: React.ReactN
     return <div className="min-h-screen bg-slate-100">{children}</div>;
   }
 
-  const links = [
-    { href: "/panel", label: "Resumen", icon: LayoutDashboard },
-    { href: "/panel/historia", label: "Identidad e historia", icon: Settings },
-    { href: "/panel/avisos", label: "Avisos", icon: Megaphone },
-    { href: "/panel/juntas", label: "Juntas directivas", icon: Users },
-    { href: "/panel/sectores", label: "Sectores", icon: MapPinned },
-
-    { href: "/panel/informes", label: "Documentos", icon: FileText },
-    { href: "/panel/galeria", label: "Galería", icon: ImageIcon },
-    { href: "/panel/legal", label: "Política de datos y términos", icon: Scale },
-    ...(session.rol === "admin"
-      ? [{ href: "/panel/usuarios", label: "Usuarios internos", icon: UserCog }]
-      : []),
+  const groups = [
+    {
+      label: null,
+      items: [{ href: "/panel", label: "Resumen", icon: LayoutDashboard, exact: true }],
+    },
+    {
+      label: "Contenido",
+      items: [
+        { href: "/panel/historia", label: "Identidad e historia", icon: Settings, exact: false },
+        { href: "/panel/avisos", label: "Avisos", icon: Megaphone, exact: false },
+        { href: "/panel/juntas", label: "Juntas directivas", icon: Users, exact: false },
+        { href: "/panel/sectores", label: "Sectores", icon: MapPinned, exact: false },
+        { href: "/panel/informes", label: "Documentos", icon: FileText, exact: false },
+        { href: "/panel/galeria", label: "Galería", icon: ImageIcon, exact: false },
+      ],
+    },
+    {
+      label: "Administración",
+      items: [
+        { href: "/panel/legal", label: "Política y términos", icon: Scale, exact: false },
+        ...(session.rol === "admin"
+          ? [{ href: "/panel/usuarios", label: "Usuarios internos", icon: UserCog, exact: false }]
+          : []),
+      ],
+    },
   ];
+  const links = groups.flatMap((g) => g.items);
 
   return (
     <div className="flex min-h-screen bg-slate-100">
@@ -54,15 +67,23 @@ export default async function PanelLayout({ children }: { children: React.ReactN
             </span>
           )}
         </div>
-        <nav className="flex-1 space-y-1 px-3 py-4">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 hover:bg-brand-50 hover:text-brand-700"
-            >
-              <link.icon className="h-4 w-4" /> {link.label}
-            </Link>
+        <nav className="flex-1 overflow-y-auto px-3 py-4">
+          {groups.map((group, gi) => (
+            <div key={gi} className={gi > 0 ? "mt-5" : ""}>
+              {group.label && (
+                <p className="mb-1 px-3 text-[10px] font-semibold uppercase tracking-widest text-slate-400">
+                  {group.label}
+                </p>
+              )}
+              <div className="space-y-0.5">
+                {group.items.map((link) => (
+                  <PanelNavLink key={link.href} href={link.href} exact={link.exact ?? false}>
+                    <link.icon className="h-4 w-4 shrink-0" />
+                    <span className="truncate">{link.label}</span>
+                  </PanelNavLink>
+                ))}
+              </div>
+            </div>
           ))}
         </nav>
         <div className="border-t border-slate-200 p-3">
